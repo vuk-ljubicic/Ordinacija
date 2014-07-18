@@ -3,7 +3,7 @@ package com.wsoft.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ExecutedService implements Serializable{
+public class ExecutedService extends BaseModel implements Serializable{
 	
 	/**
 	 * 

@@ -2,7 +2,7 @@ package com.wsoft.model;
 
 import java.io.Serializable;
 
-public class Dentist implements Serializable{
+public class Dentist extends BaseModel implements Serializable{
 	
 	/**
 	 * 

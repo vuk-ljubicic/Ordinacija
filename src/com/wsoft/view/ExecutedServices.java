@@ -1,25 +1,24 @@
 package com.wsoft.view;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
-
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
 import java.awt.BorderLayout;
 import java.awt.Font;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.Sizes;
+import com.wsoft.controller.CtrlFactory;
 
 
-public class ExecutedServices extends BaseFrame {
+public class ExecutedServices extends BaseForm {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField patient;
@@ -33,6 +32,7 @@ public class ExecutedServices extends BaseFrame {
 	private JTextField dentist;
 
 	public ExecutedServices() {
+		CtrlFactory.addView("com.wsoft.controller.DefaultCtrl", this);
 		setTitle("Izvr\u0161ene usluge");
 		BorderLayout border = new BorderLayout(0, 0);
 		getContentPane().setLayout(border);

@@ -2,7 +2,7 @@ package com.wsoft.model;
 
 import java.io.Serializable;
 
-public class Service implements Serializable{
+public class Service extends BaseModel implements Serializable{
 	
 	/**
 	 * 

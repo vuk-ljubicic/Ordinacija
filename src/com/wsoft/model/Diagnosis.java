@@ -2,7 +2,7 @@ package com.wsoft.model;
 
 import java.io.Serializable;
 
-public class Diagnosis implements Serializable {
+public class Diagnosis extends BaseModel implements Serializable {
 
 	
 	/**

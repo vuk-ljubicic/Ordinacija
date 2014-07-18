@@ -1,7 +1,9 @@
 package com.wsoft.view;
 
+import com.wsoft.controller.CtrlFactory;
 
-public class MaterialsFrame extends BaseFrame {
+
+public class MaterialsFrame extends BaseForm {
 
 	/**
 	 * 
@@ -9,6 +11,7 @@ public class MaterialsFrame extends BaseFrame {
 	private static final long serialVersionUID = 1L;
 
 	public MaterialsFrame() {
+		CtrlFactory.addView("com.wsoft.controller.DefaultCtrl", this);
 		setTitle("Registar materijala");
 	}
 

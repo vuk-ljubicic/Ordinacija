@@ -24,6 +24,7 @@ import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import com.wsoft.controller.CtrlFactory;
 import com.wsoft.model.HibernateProxy;
 
 public class Main implements ActionListener {
@@ -151,6 +152,7 @@ public class Main implements ActionListener {
 		patientsBtn.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		patientsBtn.setIcon(new ImageIcon(Main.class
 				.getResource("/icons/folder-open.png")));
+		patientsBtn.setName("com.wsoft.view.PatientFrame");
 		patientsBtn.addActionListener(this);
 		menuBar.add(patientsBtn);
 
@@ -197,7 +199,7 @@ public class Main implements ActionListener {
 			if (internalFrameClass != null) {
 				try {
 					if (!checkIfInternalOpened(internalFrameClass)) {
-						JInternalFrame internalFrame = (JInternalFrame) Class
+						BaseFrame internalFrame = (BaseFrame) Class
 								.forName(internalFrameClass).newInstance();
 						internalFrame.setMaximizable(true);
 						internalFrame.pack();
@@ -216,6 +218,7 @@ public class Main implements ActionListener {
 						internalFrame.setLocation(width, height);
 						this.desktop.add(internalFrame);
 						internalFrame.setSelected(true);
+						CtrlFactory.getCtrl(internalFrame.viewId).loadView();
 					}
 				} catch (InstantiationException | IllegalAccessException
 						| ClassNotFoundException | PropertyVetoException

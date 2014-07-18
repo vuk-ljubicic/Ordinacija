@@ -1,7 +1,9 @@
 package com.wsoft.view;
 
+import com.wsoft.controller.CtrlFactory;
 
-public class ServicesFrame extends BaseFrame {
+
+public class ServicesFrame extends BaseForm {
 
 	/**
 	 * 
@@ -12,6 +14,7 @@ public class ServicesFrame extends BaseFrame {
 	 * Create the frame.
 	 */
 	public ServicesFrame() {
+		CtrlFactory.addView("com.wsoft.controller.DefaultCtrl", this);
 		setTitle("Registar usluga");
 		
 	}

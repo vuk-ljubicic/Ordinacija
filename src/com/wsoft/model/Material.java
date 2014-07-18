@@ -2,7 +2,7 @@ package com.wsoft.model;
 
 import java.io.Serializable;
 
-public class Material implements Serializable {
+public class Material  extends BaseModel implements Serializable {
 	
 	/**
 	 * 

@@ -3,7 +3,7 @@ package com.wsoft.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Patient implements Serializable{
+public class Patient extends BaseModel implements Serializable{
 	
 	/**
 	 * 
