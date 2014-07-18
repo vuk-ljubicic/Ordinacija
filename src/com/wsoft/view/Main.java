@@ -24,7 +24,7 @@ import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import com.wsoft.controller.CtrlFactory;
+import com.wsoft.controller.CtrlCache;
 import com.wsoft.model.HibernateProxy;
 
 public class Main implements ActionListener {
@@ -218,7 +218,7 @@ public class Main implements ActionListener {
 						internalFrame.setLocation(width, height);
 						this.desktop.add(internalFrame);
 						internalFrame.setSelected(true);
-						CtrlFactory.getCtrl(internalFrame.viewId).loadView();
+						CtrlCache.getCtrl(internalFrame.getViewId()).loadView();
 					}
 				} catch (InstantiationException | IllegalAccessException
 						| ClassNotFoundException | PropertyVetoException

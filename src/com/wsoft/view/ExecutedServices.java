@@ -15,7 +15,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.Sizes;
-import com.wsoft.controller.CtrlFactory;
+import com.wsoft.controller.CtrlCache;
 
 
 public class ExecutedServices extends BaseForm {
@@ -32,7 +32,7 @@ public class ExecutedServices extends BaseForm {
 	private JTextField dentist;
 
 	public ExecutedServices() {
-		CtrlFactory.addView("com.wsoft.controller.DefaultCtrl", this);
+		CtrlCache.addView("com.wsoft.controller.DefaultCtrl", this);
 		setTitle("Izvr\u0161ene usluge");
 		BorderLayout border = new BorderLayout(0, 0);
 		getContentPane().setLayout(border);
@@ -146,6 +146,11 @@ public class ExecutedServices extends BaseForm {
 		panel.add(dentist, "18, 4, fill, default");
 		dentist.setColumns(4);
 
+	}
+
+	@Override
+	public String getViewId() {
+		return "executedServicesFrm";
 	}
 
 }

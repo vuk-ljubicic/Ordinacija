@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenuBar;
 
-public class BaseForm extends BaseFrame{
+public abstract class BaseForm extends BaseFrame{
 
 	/**
 	 * 

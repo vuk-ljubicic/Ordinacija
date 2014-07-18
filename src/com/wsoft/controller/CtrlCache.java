@@ -4,10 +4,10 @@ import java.util.HashMap;
 
 import com.wsoft.view.BaseFrame;
 
-public class CtrlFactory {
+public class CtrlCache {
 	private static HashMap<String, BaseCtrl> qualifiedClassNameCache = new HashMap<String, BaseCtrl>();
 	private static HashMap<String, BaseCtrl> viewNameCache = new HashMap<String, BaseCtrl>();
-	public static void addView(String ctrlClassName, String viewId, BaseFrame view){
+	private static void addView(String ctrlClassName, String viewId, BaseFrame view){
 		BaseCtrl ctrl = null;
 		if(qualifiedClassNameCache.containsKey(ctrlClassName)){
 			ctrl = qualifiedClassNameCache.get(ctrlClassName);
@@ -20,7 +20,7 @@ public class CtrlFactory {
 	}
 	
 	public static void addView(String ctrlClassName, BaseFrame view){
-		addView(ctrlClassName, "main", view);
+		addView(ctrlClassName, view.getViewId(), view);
 	}
 	
 	private static BaseCtrl createCtrl(String ctrlClassName){
