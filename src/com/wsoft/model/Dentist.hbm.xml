@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 3, 2012 11:34:29 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class name="com.wsoft.model.Dentist" table="Stomataolog">
+    <id name="idStom" type="long">
+      <column name="IDStom"/>
+      <generator class="increment"/>
+    </id>
+    <property name="prez" type="string" column="Prez"/>
+    <property name="ime" type="string" column="Ime"/>
+    <property name="titula" type="string" column="Titula"/>
+  </class>
+</hibernate-mapping>

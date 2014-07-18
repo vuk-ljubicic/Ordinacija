@@ -24,6 +24,8 @@ import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import com.wsoft.model.HibernateProxy;
+
 public class Main implements ActionListener {
 
 	private JFrame frame;
@@ -57,6 +59,7 @@ public class Main implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					HibernateProxy.session();
 					Main window = new Main();
 					Toolkit tk = Toolkit.getDefaultToolkit();
 					window.xSize = ((int) tk.getScreenSize().getWidth())-window.sizeDecrementer;

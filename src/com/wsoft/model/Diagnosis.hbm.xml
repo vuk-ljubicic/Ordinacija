@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 3, 2012 11:34:29 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class name="com.wsoft.model.Diagnosis" table="tblDijagnoza">
+    <id name="idDijagnoze" type="long">
+      <column name="IdDijagnoze"/>
+      <generator class="increment"/>
+    </id>
+    <property name="nazivDijagnoze" type="string" column="NazivDijagnoze"/>
+  </class>
+</hibernate-mapping>

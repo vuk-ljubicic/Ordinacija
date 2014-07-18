@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 3, 2012 11:34:29 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class name="com.wsoft.model.Patient" table="Pacijent">
+    <id name="idPac" type="long">
+      <column name="IDPac"/>
+      <generator class="increment"/>
+    </id>
+    <property name="datUp" type="java.util.Date" column="DatUp"/>
+    <property name="prez" type="string" column="Prez"/>
+    <property name="ime" type="string" column="Ime"/>
+    <property name="godRod" type="java.lang.Long" column="GodRod"/>
+    <property name="zan" type="string" column="Zan"/>
+    <property name="adr" type="string" column="Adr"/>
+    <property name="telSlu" type="string" column="TelSlu"/>
+    <property name="telPri" type="string" column="TelPri"/>
+    <property name="telMob" type="string" column="TelMob"/>
+    <property name="pager" type="string" column="Pager"/>
+    <property name="akutOb" type="java.lang.Boolean" column="AkutOb"/>
+    <property name="akutObNap" type="string" column="AkutObNap"/>
+    <property name="alerg" type="java.lang.Boolean" column="Alerg"/>
+    <property name="alergNap" type="string" column="AlergNap"/>
+    <property name="hroOb" type="java.lang.Boolean" column="HroOb"/>
+    <property name="hroObNap" type="string" column="HroObNap"/>
+    <property name="lek" type="java.lang.Boolean" column="Lek"/>
+    <property name="lekNap" type="string" column="LekNap"/>
+    <property name="rtg" type="java.lang.Boolean" column="RTG"/>
+    <property name="opt" type="java.lang.Boolean" column="OPT"/>
+    <property name="teleRtg" type="java.lang.Boolean" column="TeleRtg"/>
+    <property name="maksSin" type="java.lang.Boolean" column="MaksSin"/>
+    <property name="vilZglob" type="java.lang.Boolean" column="VilZglob"/>
+    <property name="licniBroj" type="string" column="LicniBroj"/>
+    <property name="napomena" type="string" column="Napomena"/>
+  </class>
+</hibernate-mapping>
