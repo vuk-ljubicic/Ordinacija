@@ -8,7 +8,7 @@ import com.wsoft.view.BaseFrame;
 
 public abstract class BaseCtrl {
 	protected HashMap<String, BaseFrame> view = new HashMap<String, BaseFrame>();
-	public abstract void loadView();
+	public abstract void loadView(String viewId);
 	
 	void addView(String viewId, BaseFrame view){
 		this.view.put(viewId, view);

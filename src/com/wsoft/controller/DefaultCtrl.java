@@ -11,7 +11,7 @@ import com.wsoft.model.BaseModel;
 public class DefaultCtrl extends FormCtrl{
 	
 	@Override
-	public void loadView() {
+	public void loadView(String viewId) {
 		// TODO Auto-generated method stub
 		
 	}

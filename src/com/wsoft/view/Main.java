@@ -40,9 +40,9 @@ public class Main implements ActionListener {
 	private JButton doctorsBtn;
 	private JButton servicesBtn;
 	private JMenu registriesMenu;
-	private JDesktopPane desktop;
-	private int xSize;
-	private int ySize;
+	private static JDesktopPane desktop;
+	private static int xSize;
+	private static int ySize;
 	private int sizeDecrementer = 75;
 
 	/**
@@ -179,8 +179,8 @@ public class Main implements ActionListener {
 		menuBar.add(servicesBtn);
 	}
 
-	public boolean checkIfInternalOpened(String klazName) throws PropertyVetoException {
-		for (JInternalFrame frame : this.desktop.getAllFrames()) {
+	public static boolean checkIfInternalOpened(String klazName) throws PropertyVetoException {
+		for (JInternalFrame frame : Main.desktop.getAllFrames()) {
 			if(frame.getClass().getCanonicalName().equals(klazName)){
 				frame.setSelected(true);
 				return true;
@@ -189,6 +189,37 @@ public class Main implements ActionListener {
 		return false;
 	}
 
+	public static void openFrame(String frameClassName, int minusX, int minusY){
+		try {
+			if (!checkIfInternalOpened(frameClassName)) {
+				BaseFrame internalFrame = (BaseFrame) Class
+						.forName(frameClassName).newInstance();
+				CtrlCache.getCtrl(internalFrame.getViewId()).loadView(internalFrame.getViewId());
+				internalFrame.setMaximizable(true);
+				internalFrame.pack();
+				internalFrame.setClosable(true);
+				internalFrame.setResizable(true);
+				internalFrame.setSize(Main.xSize - minusX, Main.ySize - minusY);
+				ImageIcon appImage = new ImageIcon(
+						ImageIO.read(Main.class
+								.getResource("/ZaVadjenje.bmp")));
+				internalFrame.setFrameIcon(appImage);
+				Dimension desktopSize = Main.desktop.getSize();
+				Dimension jInternalFrameSize = internalFrame.getSize();
+				int width = (desktopSize.width - jInternalFrameSize.width) / 2;
+				int height = (desktopSize.height - jInternalFrameSize.height) / 2;
+				internalFrame.setLocation(width, height);
+				Main.desktop.add(internalFrame);
+				internalFrame.setVisible(true);
+				internalFrame.setSelected(true);
+			}
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | PropertyVetoException
+				| IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		AbstractButton btnSource = null;
@@ -197,34 +228,7 @@ public class Main implements ActionListener {
 			btnSource = (AbstractButton) source;
 			String internalFrameClass = btnSource.getName();
 			if (internalFrameClass != null) {
-				try {
-					if (!checkIfInternalOpened(internalFrameClass)) {
-						BaseFrame internalFrame = (BaseFrame) Class
-								.forName(internalFrameClass).newInstance();
-						internalFrame.setMaximizable(true);
-						internalFrame.pack();
-						internalFrame.setClosable(true);
-						internalFrame.setVisible(true);
-						internalFrame.setResizable(true);
-						internalFrame.setSize(this.xSize - 15, this.ySize - 70);
-						ImageIcon appImage = new ImageIcon(
-								ImageIO.read(Main.class
-										.getResource("/ZaVadjenje.bmp")));
-						internalFrame.setFrameIcon(appImage);
-						Dimension desktopSize = this.desktop.getSize();
-						Dimension jInternalFrameSize = internalFrame.getSize();
-						int width = (desktopSize.width - jInternalFrameSize.width) / 2;
-						int height = (desktopSize.height - jInternalFrameSize.height) / 2;
-						internalFrame.setLocation(width, height);
-						this.desktop.add(internalFrame);
-						internalFrame.setSelected(true);
-						CtrlCache.getCtrl(internalFrame.getViewId()).loadView();
-					}
-				} catch (InstantiationException | IllegalAccessException
-						| ClassNotFoundException | PropertyVetoException
-						| IOException e1) {
-					e1.printStackTrace();
-				}
+				Main.openFrame(internalFrameClass, 15, 70);
 			}
 		}
 	}
