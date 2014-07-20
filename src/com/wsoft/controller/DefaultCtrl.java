@@ -1,31 +1,15 @@
 package com.wsoft.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JToggleButton;
 import javax.swing.text.JTextComponent;
 
-import com.wsoft.model.BaseModel;
-
 public class DefaultCtrl extends FormCtrl{
 	
 	@Override
-	public void loadView(String viewId) {
-		// TODO Auto-generated method stub
+	public void loadView() {
 		
-	}
-
-	@Override
-	public void loadToView(HashMap<String, List<BaseModel>> models) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public HashMap<String, List<BaseModel>> unloadFromView() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -80,30 +64,6 @@ public class DefaultCtrl extends FormCtrl{
 	public void last() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void loadToView(List<BaseModel> models) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<BaseModel> unloadListFromView() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void loadToView(BaseModel model) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public BaseModel unloadSingleFromView() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

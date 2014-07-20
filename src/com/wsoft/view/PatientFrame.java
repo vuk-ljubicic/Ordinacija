@@ -69,59 +69,59 @@ public class PatientFrame extends BaseForm {
 		final PatientFrame patientFrame = this;
 		lastBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(patientFrame.getViewId());
+				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.last();
 			}
 		});
 		nextBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(patientFrame.getViewId());
+				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.next();
 			}
 		});
 		previousBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(patientFrame.getViewId());
+				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.previous();
 			}
 		});
 		firstBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(patientFrame.getViewId());
+				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.first();
 			}
 		});
 		searchBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(patientFrame.getViewId());
+				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.search();
 			}
 		});
 		deleteBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(patientFrame.getViewId());
+				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.delete();
 			}
 		});
 		saveBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(patientFrame.getViewId());
+				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.save();
 			}
 		});
 		changeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(patientFrame.getViewId());
+				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.change();
 			}
 		});
 		newBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(patientFrame.getViewId());
+				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.create();
 			}
 		});
-		CtrlCache.addView("com.wsoft.controller.PatientCtrl", this);
+		CtrlCache.addView(PatientCtrl.class, this);
 		setBounds(100, 100, 885, 494);
 		getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 		
@@ -244,7 +244,7 @@ public class PatientFrame extends BaseForm {
 		executedServicesBtn.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		executedServicesBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(patientFrame.getViewId());
+				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.showExecutedServices();
 			}
 		});
@@ -445,12 +445,6 @@ public class PatientFrame extends BaseForm {
 		vilZglob = new JCheckBox("Vili\u010Dni zglob");
 		vilZglob.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_2.add(vilZglob, "18, 8");
-	}
-
-	@Override
-	public String getViewId() {
-		// TODO Auto-generated method stub
-		return "patientFrm";
 	}
 
 }

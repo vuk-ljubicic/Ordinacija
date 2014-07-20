@@ -22,7 +22,7 @@ public class HibernateProxyTest {
 		HibernateProxy.beginTransaction();
 	}
 	
-	@Test
+	//@Test
 	public void testPatientSelection() {
 		Query query = session.createQuery("from com.wsoft.model.Patient");
 		List patients = query.list();
@@ -33,7 +33,7 @@ public class HibernateProxyTest {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void testExecutedServiceSelection() {
 		Query query = session.createQuery("from com.wsoft.model.ExecutedService");
 		List executedServices = query.list();

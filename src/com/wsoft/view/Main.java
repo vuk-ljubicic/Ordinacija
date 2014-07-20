@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
@@ -24,6 +25,7 @@ import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import com.wsoft.controller.BaseCtrl;
 import com.wsoft.controller.CtrlCache;
 import com.wsoft.model.HibernateProxy;
 
@@ -50,7 +52,8 @@ public class Main implements ActionListener {
 	 */
 	public static void main(String[] args) {
 		try {
-			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			UIManager
+					.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (ClassNotFoundException | InstantiationException
 				| IllegalAccessException | UnsupportedLookAndFeelException e1) {
 			// TODO Auto-generated catch block
@@ -63,8 +66,10 @@ public class Main implements ActionListener {
 					HibernateProxy.session();
 					Main window = new Main();
 					Toolkit tk = Toolkit.getDefaultToolkit();
-					window.xSize = ((int) tk.getScreenSize().getWidth())-window.sizeDecrementer;
-					window.ySize = ((int) tk.getScreenSize().getHeight())-window.sizeDecrementer;
+					window.xSize = ((int) tk.getScreenSize().getWidth())
+							- window.sizeDecrementer;
+					window.ySize = ((int) tk.getScreenSize().getHeight())
+							- window.sizeDecrementer;
 					window.frame.setSize(window.xSize, window.ySize);
 					Dimension dimension = Toolkit.getDefaultToolkit()
 							.getScreenSize();
@@ -85,7 +90,8 @@ public class Main implements ActionListener {
 
 					window.frame.setLocation(x, y);
 					window.frame.setVisible(true);
-					window.frame.setExtendedState(window.frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+					window.frame.setExtendedState(window.frame
+							.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -179,9 +185,10 @@ public class Main implements ActionListener {
 		menuBar.add(servicesBtn);
 	}
 
-	public static boolean checkIfInternalOpened(String klazName) throws PropertyVetoException {
+	public static boolean checkIfInternalOpened(java.lang.Class frameClass)
+			throws PropertyVetoException {
 		for (JInternalFrame frame : Main.desktop.getAllFrames()) {
-			if(frame.getClass().getCanonicalName().equals(klazName)){
+			if (frame.getClass().getName().equals(frameClass.getName())) {
 				frame.setSelected(true);
 				return true;
 			}
@@ -189,20 +196,22 @@ public class Main implements ActionListener {
 		return false;
 	}
 
-	public static void openFrame(String frameClassName, int minusX, int minusY){
+	public static void openFrame(java.lang.Class frameClass, int minusX,
+			int minusY) {
 		try {
-			if (!checkIfInternalOpened(frameClassName)) {
-				BaseFrame internalFrame = (BaseFrame) Class
-						.forName(frameClassName).newInstance();
-				CtrlCache.getCtrl(internalFrame.getViewId()).loadView(internalFrame.getViewId());
+			if (!checkIfInternalOpened(frameClass)) {
+				BaseFrame internalFrame = (BaseFrame) frameClass.newInstance();
+				List<BaseCtrl> ctrls = CtrlCache.getViewCtrls(internalFrame);
+				for (BaseCtrl ctrl : ctrls) {
+					ctrl.loadView();
+				}
 				internalFrame.setMaximizable(true);
 				internalFrame.pack();
 				internalFrame.setClosable(true);
 				internalFrame.setResizable(true);
 				internalFrame.setSize(Main.xSize - minusX, Main.ySize - minusY);
-				ImageIcon appImage = new ImageIcon(
-						ImageIO.read(Main.class
-								.getResource("/ZaVadjenje.bmp")));
+				ImageIcon appImage = new ImageIcon(ImageIO.read(Main.class
+						.getResource("/ZaVadjenje.bmp")));
 				internalFrame.setFrameIcon(appImage);
 				Dimension desktopSize = Main.desktop.getSize();
 				Dimension jInternalFrameSize = internalFrame.getSize();
@@ -214,12 +223,11 @@ public class Main implements ActionListener {
 				internalFrame.setSelected(true);
 			}
 		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | PropertyVetoException
-				| IOException e1) {
+				| PropertyVetoException | IOException e1) {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		AbstractButton btnSource = null;
@@ -228,7 +236,11 @@ public class Main implements ActionListener {
 			btnSource = (AbstractButton) source;
 			String internalFrameClass = btnSource.getName();
 			if (internalFrameClass != null) {
-				Main.openFrame(internalFrameClass, 15, 70);
+				try {
+					Main.openFrame(Class.forName(internalFrameClass), 15, 70);
+				} catch (ClassNotFoundException e1) {
+					e1.printStackTrace();
+				}
 			}
 		}
 	}

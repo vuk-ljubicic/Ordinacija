@@ -6,7 +6,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import com.wsoft.controller.CtrlCache;
-import com.wsoft.controller.PatientCtrl;
+import com.wsoft.controller.PatientServicesCtrl;
 
 
 public class PatientServices extends BaseForm {
@@ -21,19 +21,10 @@ public class PatientServices extends BaseForm {
 	 * Create the frame.
 	 */
 	public PatientServices() {
-		CtrlCache.addView("com.wsoft.controller.PatientCtrl", this);
+		CtrlCache.addView(PatientServicesCtrl.class, this);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout(0, 0));
-		PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(this.getViewId());
-		table = new JTable(ctrl.patientServicesTableData, ctrl.patientServicesColumnNames);
-		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-		scrollPane = new JScrollPane(table);
+		scrollPane = new JScrollPane();
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 	}
-
-	@Override
-	public String getViewId() {
-		return "patientServicesFrm";
-	}
-
 }

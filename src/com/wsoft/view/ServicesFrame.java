@@ -1,6 +1,7 @@
 package com.wsoft.view;
 
 import com.wsoft.controller.CtrlCache;
+import com.wsoft.controller.DefaultCtrl;
 
 
 public class ServicesFrame extends BaseForm {
@@ -14,15 +15,8 @@ public class ServicesFrame extends BaseForm {
 	 * Create the frame.
 	 */
 	public ServicesFrame() {
-		CtrlCache.addView("com.wsoft.controller.DefaultCtrl", this);
+		CtrlCache.addView(DefaultCtrl.class, this);
 		setTitle("Registar usluga");
 		
 	}
-
-	@Override
-	public String getViewId() {
-		// TODO Auto-generated method stub
-		return "servicesFrm";
-	}
-
 }

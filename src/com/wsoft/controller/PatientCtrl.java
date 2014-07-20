@@ -1,34 +1,25 @@
 package com.wsoft.controller;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import javax.swing.JTable;
 import javax.swing.JToggleButton;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.text.JTextComponent;
 
 import org.hibernate.Query;
 
 import com.wsoft.model.BaseModel;
-import com.wsoft.model.ExecutedService;
 import com.wsoft.model.HibernateProxy;
 import com.wsoft.model.Patient;
 import com.wsoft.view.Main;
 import com.wsoft.view.PatientFrame;
 import com.wsoft.view.PatientServices;
 
-public class PatientCtrl extends FormCtrl {
-
-	public String[] patientServicesColumnNames = { "Datum", "Zub", "Dijagnoza",
-			"Intervencija", "Materijal", "Povrsine", "Napomena", "Stomatolog" };
-	public Object[][] patientServicesTableData = {{"","","","","","","",""}};
+public class PatientCtrl extends FormCtrl implements ModelLoadable{
 
 	@Override
 	public void create() {
-		this.create("patientFrm");
+		super.create();
 		Patient patient = new Patient();
 		HibernateProxy.beginTransaction();
 		HibernateProxy.merge(patient);
@@ -40,10 +31,11 @@ public class PatientCtrl extends FormCtrl {
 
 	@Override
 	public void delete() {
-		Patient patient = (Patient) this.unloadSingleFromView();
+		Patient patient = (Patient) this.unloadFromView();
 		HibernateProxy.beginTransaction();
 		HibernateProxy.delete(patient);
 		HibernateProxy.commitTransaction();
+		HibernateProxy.session().close();
 		this.previous();
 		this.next();
 	}
@@ -56,29 +48,30 @@ public class PatientCtrl extends FormCtrl {
 
 	@Override
 	public void save() {
-		this.save("patientFrm");
-		Patient patient = (Patient) this.unloadSingleFromView();
+		super.save();
+		Patient patient = (Patient) this.unloadFromView();
 		HibernateProxy.beginTransaction();
 		HibernateProxy.merge(patient);
 		HibernateProxy.commitTransaction();
+		HibernateProxy.session().close();
 		this.loadToView(patient);
 
 	}
 
 	@Override
 	public void change() {
-		this.change("patientFrm");
+		super.change();
 	}
 
 	@Override
 	public void first() {
-		this.loadView("patientFrm");
-
+		super.first();
+		this.load();
 	}
 
 	@Override
 	public void previous() {
-		Patient patient = (Patient) this.unloadSingleFromView();
+		Patient patient = (Patient) this.unloadFromView();
 		Long idPac = patient.getIdPac();
 		Query query = HibernateProxy
 				.session()
@@ -90,12 +83,13 @@ public class PatientCtrl extends FormCtrl {
 		if (patients != null && !patients.isEmpty()) {
 			loadToView(patients.get(0));
 		}
+		HibernateProxy.session().close();
 
 	}
 
 	@Override
 	public void next() {
-		Patient patient = (Patient) this.unloadSingleFromView();
+		Patient patient = (Patient) this.unloadFromView();
 		Long idPac = patient.getIdPac();
 		Query query = HibernateProxy
 				.session()
@@ -107,6 +101,7 @@ public class PatientCtrl extends FormCtrl {
 		if (patients != null && !patients.isEmpty()) {
 			loadToView(patients.get(0));
 		}
+		HibernateProxy.session().close();
 	}
 
 	@Override
@@ -118,52 +113,17 @@ public class PatientCtrl extends FormCtrl {
 		if (patients != null && !patients.isEmpty()) {
 			loadToView(patients.get(0));
 		}
+		HibernateProxy.session().close();
 
 	}
 
 	@Override
-	public void loadView(String viewId) {
-		if (viewId.equals("patientFrm")) {
-			this.loadPatientView();
-		}
-		if (viewId.equals("patientServicesFrm")) {
-			this.loadPatientServicesView();
-		}
-
+	public void loadView() {
+		this.first();
+		this.load();
 	}
 	
-	public void loadPatientServicesView(){
-		PatientServices frame = (PatientServices)this.view.get("patientServicesFrm");
-		Patient patient = (Patient) this.unloadSingleFromView();
-		Long idPac = patient.getIdPac();
-		Query query = HibernateProxy.session().createQuery("from com.wsoft.model.ExecutedService s where "
-				+ "s.idPac = :idPac");
-		query.setLong("idPac", idPac);
-		List<ExecutedService> services = query.list();
-		if (services != null && !services.isEmpty()) {
-			this.patientServicesTableData = new Object[services.size()][];
-			for(int i=0; i<services.size(); i++){
-				this.patientServicesTableData[i] = new Object[8];
-				this.patientServicesTableData[i][0] = services.get(i).getDatum();
-				this.patientServicesTableData[i][1] = services.get(i).getIdZuba();
-				this.patientServicesTableData[i][2] = services.get(i).getDijagnoza();
-				this.patientServicesTableData[i][3] = services.get(i).getUsluga();
-				this.patientServicesTableData[i][4] = services.get(i).getMaterijal();
-				this.patientServicesTableData[i][5] = services.get(i).getPovrsine();
-				this.patientServicesTableData[i][6] = services.get(i).getNapomena();
-				this.patientServicesTableData[i][7] = services.get(i).getIdStom();
-			}
-		}
-		frame.table = new JTable(patientServicesTableData, patientServicesColumnNames);
-		frame.table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-		frame.scrollPane.getViewport().add(frame.table);
-		frame.scrollPane.repaint();
-		AbstractTableModel tableModel = (AbstractTableModel)frame.table.getModel();
-		tableModel.fireTableDataChanged();
-	}
-	
-	public void loadPatientView(){
-		this.first("patientFrm");
+	public void load(){
 		Query query = HibernateProxy.session().createQuery(
 				"from com.wsoft.model.Patient p where p.idPac in (select min(p1.idPac) "
 						+ "from com.wsoft.model.Patient p1)");
@@ -171,16 +131,21 @@ public class PatientCtrl extends FormCtrl {
 		if (patients != null && !patients.isEmpty()) {
 			loadToView(patients.get(0));
 		}
+		HibernateProxy.session().close();
 	}
 
 	public void showExecutedServices() {
-		Main.openFrame("com.wsoft.view.PatientServices", 400, 500);
+		Patient patient = (Patient) this.unloadFromView();
+		Long idPac = patient.getIdPac();
+		PatientServicesCtrl patientServicesCtrl = (PatientServicesCtrl)CtrlCache.getCtrl(PatientServicesCtrl.class);
+		patientServicesCtrl.idPac = idPac;
+		Main.openFrame(PatientServices.class, 400, 500);
 	}
 
 	@Override
 	public List<JTextComponent> alwaysLocked() {
 		List<JTextComponent> lockedComponents = new ArrayList<JTextComponent>();
-		PatientFrame frame = (PatientFrame) this.view.get("patientFrm");
+		PatientFrame frame = (PatientFrame) this.view;
 		lockedComponents.add(frame.idPac);
 		return lockedComponents;
 	}
@@ -188,7 +153,7 @@ public class PatientCtrl extends FormCtrl {
 	@Override
 	public void loadToView(BaseModel model) {
 		Patient patient = (Patient) model;
-		PatientFrame frame = (PatientFrame) this.view.get("patientFrm");
+		PatientFrame frame = (PatientFrame) this.view;
 		frame.adr.setText(patient.getAdr());
 		frame.idPac.setText(patient.getIdPac().toString());
 		frame.akutOb.setSelected(patient.getAkutOb());
@@ -216,9 +181,9 @@ public class PatientCtrl extends FormCtrl {
 	}
 
 	@Override
-	public BaseModel unloadSingleFromView() {
+	public BaseModel unloadFromView() {
 		Patient patient = new Patient();
-		PatientFrame frame = (PatientFrame) this.view.get("patientFrm");
+		PatientFrame frame = (PatientFrame) this.view;
 		patient.setAdr(frame.adr.getText());
 		patient.setIdPac(new Long(frame.idPac.getText()));
 		patient.setAkutOb(frame.akutOb.isSelected());
@@ -246,33 +211,9 @@ public class PatientCtrl extends FormCtrl {
 		return patient;
 	}
 
-	@Override
-	public void loadToView(List<BaseModel> models) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<BaseModel> unloadListFromView() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void loadToView(HashMap<String, List<BaseModel>> models) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public HashMap<String, List<BaseModel>> unloadFromView() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<JToggleButton> alwaysDisabled() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

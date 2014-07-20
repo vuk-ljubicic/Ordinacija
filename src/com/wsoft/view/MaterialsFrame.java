@@ -1,6 +1,7 @@
 package com.wsoft.view;
 
 import com.wsoft.controller.CtrlCache;
+import com.wsoft.controller.DefaultCtrl;
 
 
 public class MaterialsFrame extends BaseForm {
@@ -11,13 +12,7 @@ public class MaterialsFrame extends BaseForm {
 	private static final long serialVersionUID = 1L;
 
 	public MaterialsFrame() {
-		CtrlCache.addView("com.wsoft.controller.DefaultCtrl", this);
+		CtrlCache.addView(DefaultCtrl.class, this);
 		setTitle("Registar materijala");
 	}
-
-	@Override
-	public String getViewId() {
-		return "materialsFrm";
-	}
-
 }

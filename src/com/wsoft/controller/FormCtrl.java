@@ -9,9 +9,8 @@ import javax.swing.text.JTextComponent;
 import com.wsoft.view.BaseForm;
 
 public abstract class FormCtrl extends BaseCtrl {
-	public abstract void create();
-	public void create(String viewId) {
-		BaseForm frame = (BaseForm) this.view.get(viewId);
+	public void create() {
+		BaseForm frame = (BaseForm) this.view;
 		this.unlockAllfields(frame);
 		this.enableAllfields(frame);
 		frame.newBtn.setEnabled(false);
@@ -28,9 +27,8 @@ public abstract class FormCtrl extends BaseCtrl {
 
 	public abstract void search();
 	
-	public abstract void save();
-	public void save(String viewId) {
-		BaseForm frame = (BaseForm) this.view.get(viewId);
+	public void save(){
+		BaseForm frame = (BaseForm) this.view;
 		this.disableAllfields(frame);
 		this.lockAllfields(frame);
 		frame.newBtn.setEnabled(true);
@@ -42,15 +40,14 @@ public abstract class FormCtrl extends BaseCtrl {
 		frame.deleteBtn.setEnabled(true);
 		frame.changeBtn.setEnabled(true);
 	}
+
 	
-	public abstract void change();
-	public void change(String viewId) {
-		this.create(viewId);
+	public void change() {
+		this.create();
 	}
 
-	public abstract void first();
-	public void first(String viewId) {
-		BaseForm frame = (BaseForm) this.view.get(viewId);
+	public void first() {
+		BaseForm frame = (BaseForm) this.view;
 		this.disableAllfields(frame);
 		this.lockAllfields(frame);
 	}
