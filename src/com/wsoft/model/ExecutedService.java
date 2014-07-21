@@ -10,15 +10,15 @@ public class ExecutedService extends BaseModel implements Serializable{
 	 */
 	private static final long serialVersionUID = -6669899737167179785L;
 	
-	private Long idPac;
-	private Date datum;
-	private Long idZuba;
-	private Long dijagnoza;
-	private Long usluga;
-	private Long materijal;
-	private String povrsine;
-	private String napomena;
-	private Long idStom;
+	protected Long idPac;
+	protected Date datum = new java.util.Date();
+	protected Long idZuba = new java.lang.Long(0);
+	protected Long dijagnoza= new java.lang.Long(0);
+	protected Long usluga= new java.lang.Long(0);
+	protected Long materijal= new java.lang.Long(0);
+	protected String povrsine = "";
+	protected String napomena = "";
+	protected Long idStom = new java.lang.Long(0);
 	
 	public Long getIdPac() {
 		return idPac;

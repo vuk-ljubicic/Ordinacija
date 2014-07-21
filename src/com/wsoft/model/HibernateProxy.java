@@ -63,7 +63,7 @@ public class HibernateProxy {
 		prop.put("hibernate.connection.pool_size", "0");
 		prop.put("transaction.factory_class",
 				"org.hibernate.transaction.JDBCTransactionFactory");
-		prop.put("connection.autocommit", "true");
+		prop.put("connection.autocommit", "false");
 		prop.put("connection.provider_class",
 				"org.hibernate.connection.C3P0ConnectionProvider");
 		Configuration config = new Configuration();

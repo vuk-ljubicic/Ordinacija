@@ -1,52 +1,132 @@
 package com.wsoft.controller;
 
-import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.TableModelEvent;
 
 import org.hibernate.Query;
 
 import com.wsoft.model.ExecutedService;
 import com.wsoft.model.HibernateProxy;
 import com.wsoft.view.PatientServices;
+import com.wsoft.view.components.TableImpl;
+import com.wsoft.view.components.TableModelImpl;
 
-public class PatientServicesCtrl extends GridCtrl {
+public class PatientServicesCtrl extends GridCtrl implements
+		ModelListLoadable<ExecutedService> {
 
-	public String[] patientServicesColumnNames = { "Datum", "Zub", "Dijagnoza",
-			"Intervencija", "Materijal", "Povrsine", "Napomena", "Stomatolog" };
-	public Object[][] patientServicesTableData = {{"","","","","","","",""}};
-	
 	public Long idPac;
-	
+	public TableImpl table;
+	private TableModelImpl tableModel;
+
 	@Override
 	public void loadView() {
-		PatientServices frame = (PatientServices)this.view;
-		Query query = HibernateProxy.session().createQuery("from com.wsoft.model.ExecutedService s where "
-				+ "s.idPac = :idPac");
+		PatientServices frame = (PatientServices) this.view;
+		this.table = new TableImpl(this);
+		frame.scrollPane.getViewport().add(this.table);
+		this.loadData();
+	}
+
+	public void loadData() {
+		PatientServices frame = (PatientServices) this.view;
+		Query query = HibernateProxy.session().createQuery(
+				"from com.wsoft.model.ExecutedService s where "
+						+ "s.idPac = :idPac");
 		query.setLong("idPac", idPac);
 		List<ExecutedService> services = query.list();
 		if (services != null && !services.isEmpty()) {
-			this.patientServicesTableData = new Object[services.size()][];
-			for(int i=0; i<services.size(); i++){
-				this.patientServicesTableData[i] = new Object[8];
-				this.patientServicesTableData[i][0] = services.get(i).getDatum();
-				this.patientServicesTableData[i][1] = services.get(i).getIdZuba();
-				this.patientServicesTableData[i][2] = services.get(i).getDijagnoza();
-				this.patientServicesTableData[i][3] = services.get(i).getUsluga();
-				this.patientServicesTableData[i][4] = services.get(i).getMaterijal();
-				this.patientServicesTableData[i][5] = services.get(i).getPovrsine();
-				this.patientServicesTableData[i][6] = services.get(i).getNapomena();
-				this.patientServicesTableData[i][7] = services.get(i).getIdStom();
-			}
+			this.loadToView(services);
 		}
-		frame.table = new JTable(patientServicesTableData, patientServicesColumnNames);
-		frame.table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-		frame.scrollPane.getViewport().add(frame.table);
-		frame.scrollPane.repaint();
-		AbstractTableModel tableModel = (AbstractTableModel)frame.table.getModel();
-		tableModel.fireTableDataChanged();
+	}
+
+	@Override
+	public void loadToView(List<ExecutedService> models) {
+		Vector tableData = new Vector();
+		for (ExecutedService executedService : models) {
+			Vector tableRow = new Vector();
+			tableRow.add(executedService.getDatum());
+			tableRow.add(executedService.getIdZuba());
+			tableRow.add(executedService.getDijagnoza());
+			tableRow.add(executedService.getUsluga());
+			tableRow.add(executedService.getMaterijal());
+			tableRow.add(executedService.getPovrsine());
+			tableRow.add(executedService.getNapomena());
+			tableRow.add(executedService.getIdStom());
+			tableData.add(tableRow);
+		}
+		this.tableModel = new TableModelImpl(tableData, this.getColumnNames(),
+				this);
+		this.table.setModel(this.tableModel);
+	}
+
+	@Override
+	public List<ExecutedService> unloadFromView() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void tableChanged(TableModelEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent e) {
+		ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+		int rowIndex = e.getLastIndex();
+		if (!lsm.isSelectionEmpty()) {
+			Vector row = (Vector)this.tableModel.getDataVector().get(rowIndex);
+			System.out.println("<row>");
+			for(Object column: row){
+				if(column != null)
+					System.out.println("\t"+column.toString());
+				else
+					System.out.println("\tnull");
+			}
+			System.out.println("</row>");
+		}
+	}
+
+	@Override
+	public Vector<String> getColumnNames() {
+		Vector<String> columnNames = new Vector<String>();
+		columnNames.add("Datum");
+		columnNames.add("Zub");
+		columnNames.add("Dijagnoza");
+		columnNames.add("Intervencija");
+		columnNames.add("Materijal");
+		columnNames.add("Povr\u0161ine");
+		columnNames.add("Napomena");
+		columnNames.add("Stomatolog");
+		return columnNames;
+	}
+
+	@Override
+	public List<Class> getColumnClassTypes() {
+		ArrayList<java.lang.Class> classes = new ArrayList<java.lang.Class>();
+		classes.add(java.util.Date.class);
+		classes.add(java.lang.Long.class);
+		classes.add(java.lang.Long.class);
+		classes.add(java.lang.Long.class);
+		classes.add(java.lang.Long.class);
+		classes.add(java.lang.String.class);
+		classes.add(java.lang.String.class);
+		classes.add(java.lang.Long.class);
+		return classes;
+	}
+
+	@Override
+	public List<Integer> hiddenColumns() {
+		ArrayList<Integer> hiddenColumns = new ArrayList<Integer>();
+		hiddenColumns.add(0);
+		hiddenColumns.add(1);
+		hiddenColumns.add(3);
+		return hiddenColumns;
 	}
 
 }

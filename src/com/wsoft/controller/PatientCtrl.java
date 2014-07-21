@@ -21,21 +21,30 @@ public class PatientCtrl extends FormCtrl implements ModelLoadable{
 	public void create() {
 		super.create();
 		Patient patient = new Patient();
-		HibernateProxy.beginTransaction();
-		HibernateProxy.merge(patient);
-		HibernateProxy.persist(patient);
+		HibernateProxy.session().save(patient);
 		HibernateProxy.commitTransaction();
-		HibernateProxy.session().close();
-		this.loadToView(patient);
+		HibernateProxy.beginTransaction();
+		this.loadToView(this.selectWithMaxId());
 	}
 
+	public Patient selectWithMaxId(){
+		Query query = HibernateProxy
+				.session()
+				.createQuery(
+						"from com.wsoft.model.Patient p where p.idPac in (select max(p1.idPac) "
+								+ "from com.wsoft.model.Patient p1)");
+		List<Patient> patients = query.list();
+		if (patients != null && !patients.isEmpty()) {
+			return patients.get(0);
+		} else{
+			return null;
+		}
+	}
+	
 	@Override
 	public void delete() {
 		Patient patient = (Patient) this.unloadFromView();
-		HibernateProxy.beginTransaction();
 		HibernateProxy.delete(patient);
-		HibernateProxy.commitTransaction();
-		HibernateProxy.session().close();
 		this.previous();
 		this.next();
 	}
@@ -50,10 +59,7 @@ public class PatientCtrl extends FormCtrl implements ModelLoadable{
 	public void save() {
 		super.save();
 		Patient patient = (Patient) this.unloadFromView();
-		HibernateProxy.beginTransaction();
 		HibernateProxy.merge(patient);
-		HibernateProxy.commitTransaction();
-		HibernateProxy.session().close();
 		this.loadToView(patient);
 
 	}
@@ -83,7 +89,6 @@ public class PatientCtrl extends FormCtrl implements ModelLoadable{
 		if (patients != null && !patients.isEmpty()) {
 			loadToView(patients.get(0));
 		}
-		HibernateProxy.session().close();
 
 	}
 
@@ -101,7 +106,6 @@ public class PatientCtrl extends FormCtrl implements ModelLoadable{
 		if (patients != null && !patients.isEmpty()) {
 			loadToView(patients.get(0));
 		}
-		HibernateProxy.session().close();
 	}
 
 	@Override
@@ -113,7 +117,6 @@ public class PatientCtrl extends FormCtrl implements ModelLoadable{
 		if (patients != null && !patients.isEmpty()) {
 			loadToView(patients.get(0));
 		}
-		HibernateProxy.session().close();
 
 	}
 
@@ -131,7 +134,6 @@ public class PatientCtrl extends FormCtrl implements ModelLoadable{
 		if (patients != null && !patients.isEmpty()) {
 			loadToView(patients.get(0));
 		}
-		HibernateProxy.session().close();
 	}
 
 	public void showExecutedServices() {
@@ -139,7 +141,7 @@ public class PatientCtrl extends FormCtrl implements ModelLoadable{
 		Long idPac = patient.getIdPac();
 		PatientServicesCtrl patientServicesCtrl = (PatientServicesCtrl)CtrlCache.getCtrl(PatientServicesCtrl.class);
 		patientServicesCtrl.idPac = idPac;
-		Main.openFrame(PatientServices.class, 400, 500);
+		Main.openFrame(PatientServices.class, 200, 300);
 	}
 
 	@Override

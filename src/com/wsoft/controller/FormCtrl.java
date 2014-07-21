@@ -9,7 +9,8 @@ import javax.swing.text.JTextComponent;
 import com.wsoft.view.BaseForm;
 
 public abstract class FormCtrl extends BaseCtrl {
-	public void create() {
+	
+	public void createChange(){
 		BaseForm frame = (BaseForm) this.view;
 		this.unlockAllfields(frame);
 		this.enableAllfields(frame);
@@ -21,6 +22,10 @@ public abstract class FormCtrl extends BaseCtrl {
 		frame.nextBtn.setEnabled(false);
 		frame.deleteBtn.setEnabled(false);
 		frame.changeBtn.setEnabled(false);
+	}
+	
+	public void create() {
+		this.createChange();
 	}
 
 	public abstract void delete();
@@ -43,7 +48,7 @@ public abstract class FormCtrl extends BaseCtrl {
 
 	
 	public void change() {
-		this.create();
+		this.createChange();
 	}
 
 	public void first() {

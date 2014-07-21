@@ -64,6 +64,7 @@ public class Main implements ActionListener {
 			public void run() {
 				try {
 					HibernateProxy.session();
+					HibernateProxy.closeSession();
 					Main window = new Main();
 					Toolkit tk = Toolkit.getDefaultToolkit();
 					window.xSize = ((int) tk.getScreenSize().getWidth())

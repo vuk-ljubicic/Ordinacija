@@ -14,13 +14,13 @@ public class PatientServices extends BaseForm {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public JTable table;
 	public JScrollPane scrollPane;
 
 	/**
 	 * Create the frame.
 	 */
 	public PatientServices() {
+		setTitle("Izvr\u0161ene usluge");
 		CtrlCache.addView(PatientServicesCtrl.class, this);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout(0, 0));

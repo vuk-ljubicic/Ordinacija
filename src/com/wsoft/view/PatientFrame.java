@@ -22,6 +22,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.Sizes;
 import com.wsoft.controller.CtrlCache;
 import com.wsoft.controller.PatientCtrl;
+import com.wsoft.view.action.EventHandle;
 
 
 public class PatientFrame extends BaseForm {
@@ -67,56 +68,56 @@ public class PatientFrame extends BaseForm {
 	public PatientFrame() {
 		setTitle("Pacijent");
 		final PatientFrame patientFrame = this;
-		lastBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		lastBtn.addActionListener(new EventHandle() {
+			public void handleEvent(ActionEvent e) {
 				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.last();
 			}
 		});
-		nextBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		nextBtn.addActionListener(new EventHandle() {
+			public void handleEvent(ActionEvent e) {
 				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.next();
 			}
 		});
-		previousBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		previousBtn.addActionListener(new EventHandle() {
+			public void handleEvent(ActionEvent e) {
 				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.previous();
 			}
 		});
-		firstBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		firstBtn.addActionListener(new EventHandle() {
+			public void handleEvent(ActionEvent e) {
 				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.first();
 			}
 		});
-		searchBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		searchBtn.addActionListener(new EventHandle() {
+			public void handleEvent(ActionEvent e) {
 				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.search();
 			}
 		});
-		deleteBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		deleteBtn.addActionListener(new EventHandle() {
+			public void handleEvent(ActionEvent e) {
 				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.delete();
 			}
 		});
-		saveBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		saveBtn.addActionListener(new EventHandle() {
+			public void handleEvent(ActionEvent e) {
 				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.save();
 			}
 		});
-		changeBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		changeBtn.addActionListener(new EventHandle() {
+			public void handleEvent(ActionEvent e) {
 				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.change();
 			}
 		});
-		newBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		newBtn.addActionListener(new EventHandle() {
+			public void handleEvent(ActionEvent e) {
 				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.create();
 			}
@@ -242,8 +243,8 @@ public class PatientFrame extends BaseForm {
 		
 		executedServicesBtn = new JButton("Izvr\u0161ene intervencije");
 		executedServicesBtn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		executedServicesBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		executedServicesBtn.addActionListener(new EventHandle() {
+			public void handleEvent(ActionEvent e) {
 				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
 				ctrl.showExecutedServices();
 			}
