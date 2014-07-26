@@ -42,4 +42,9 @@ public class Dentist extends BaseModel implements Serializable{
 	public void setTitula(String titula) {
 		this.titula = titula;
 	}
+	
+	@Override
+	public String toString(){
+		return this.ime+" "+this.prez;
+	}
 }

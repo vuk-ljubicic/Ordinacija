@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.wsoft.model.BaseModel;
 
-public interface ModelListLoadable<T extends BaseModel> {
+public interface ModelListLoadable<T> {
 	public void loadToView(List<T> models);
 	public List<T> unloadFromView();
 }

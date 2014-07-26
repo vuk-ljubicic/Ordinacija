@@ -1,7 +1,10 @@
 package com.wsoft.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
+
+import org.apache.commons.lang.time.DateUtils;
 
 public class ExecutedService extends BaseModel implements Serializable{
 	
@@ -11,12 +14,20 @@ public class ExecutedService extends BaseModel implements Serializable{
 	private static final long serialVersionUID = -6669899737167179785L;
 	
 	protected Long idPac;
-	protected Date datum = new java.util.Date();
+	protected long increment;
+	protected Date datum = new Date();
 	protected Long idZuba = new java.lang.Long(0);
 	protected Long dijagnoza= new java.lang.Long(0);
 	protected Long usluga= new java.lang.Long(0);
 	protected Long materijal= new java.lang.Long(0);
 	protected String povrsine = "";
+	public long getIncrement() {
+		return increment;
+	}
+	public void setIncrement(long increment) {
+		this.increment = increment;
+	}
+
 	protected String napomena = "";
 	protected Long idStom = new java.lang.Long(0);
 	

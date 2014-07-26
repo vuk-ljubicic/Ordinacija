@@ -141,7 +141,7 @@ public class PatientCtrl extends FormCtrl implements ModelLoadable{
 		Long idPac = patient.getIdPac();
 		PatientServicesCtrl patientServicesCtrl = (PatientServicesCtrl)CtrlCache.getCtrl(PatientServicesCtrl.class);
 		patientServicesCtrl.idPac = idPac;
-		Main.openFrame(PatientServices.class, 200, 300);
+		Main.openFrame(PatientServices.class, 10, 250);
 	}
 
 	@Override

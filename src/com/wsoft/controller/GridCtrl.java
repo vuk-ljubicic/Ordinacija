@@ -10,4 +10,7 @@ public abstract class GridCtrl extends BaseCtrl implements ListSelectionListener
 	public abstract Vector<String> getColumnNames();
 	public abstract List<java.lang.Class> getColumnClassTypes();
 	public abstract List<Integer> hiddenColumns();
+	public abstract void create();
+	public abstract void delete();
+	public abstract void change();
 }

@@ -28,4 +28,8 @@ public class Material  extends BaseModel implements Serializable {
 		this.nazMat = nazMat;
 	}
 	
+	@Override
+	public String toString(){
+		return this.nazMat;
+	}
 }

@@ -2,7 +2,6 @@ package com.wsoft.view;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -67,7 +66,6 @@ public class PatientFrame extends BaseForm {
 	 */
 	public PatientFrame() {
 		setTitle("Pacijent");
-		final PatientFrame patientFrame = this;
 		lastBtn.addActionListener(new EventHandle() {
 			public void handleEvent(ActionEvent e) {
 				PatientCtrl ctrl = (PatientCtrl)CtrlCache.getCtrl(PatientCtrl.class);
@@ -179,23 +177,23 @@ public class PatientFrame extends BaseForm {
 
 		panel_3.add(datUp, "8, 2, fill, default");
 		
-		JLabel lblNewLabel_2 = new JLabel("Prezime");
+		JLabel lblNewLabel_2 = new JLabel("Ime");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_3.add(lblNewLabel_2, "2, 4, right, default");
 		
-		prez = new JTextField();
-		prez.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		panel_3.add(prez, "4, 4, fill, default");
-		prez.setColumns(10);
+		ime = new JTextField();
+		ime.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		panel_3.add(ime, "4, 4, fill, default");
+		ime.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("Ime");
+		JLabel lblNewLabel_3 = new JLabel("Prezime");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_3.add(lblNewLabel_3, "6, 4, right, default");
 		
-		ime = new JTextField();
-		ime.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		panel_3.add(ime, "8, 4, fill, default");
-		ime.setColumns(10);
+		prez = new JTextField();
+		prez.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		panel_3.add(prez, "8, 4, fill, default");
+		prez.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Godina ro\u0111enja");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));

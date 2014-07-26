@@ -28,6 +28,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import com.wsoft.controller.BaseCtrl;
 import com.wsoft.controller.CtrlCache;
 import com.wsoft.model.HibernateProxy;
+import com.wsoft.refresher.RefresherThread;
 
 public class Main implements ActionListener {
 
@@ -65,6 +66,8 @@ public class Main implements ActionListener {
 				try {
 					HibernateProxy.session();
 					HibernateProxy.closeSession();
+					//Thread therad = new Thread(new RefresherThread());
+					//therad.start();
 					Main window = new Main();
 					Toolkit tk = Toolkit.getDefaultToolkit();
 					window.xSize = ((int) tk.getScreenSize().getWidth())
@@ -196,7 +199,7 @@ public class Main implements ActionListener {
 		}
 		return false;
 	}
-
+	
 	public static void openFrame(java.lang.Class frameClass, int minusX,
 			int minusY) {
 		try {

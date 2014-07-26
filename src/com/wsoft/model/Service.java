@@ -27,4 +27,9 @@ public class Service extends BaseModel implements Serializable{
 	public void setNazUsl(String nazUsl) {
 		this.nazUsl = nazUsl;
 	}
+	
+	@Override
+	public String toString(){
+		return this.nazUsl;
+	}
 }

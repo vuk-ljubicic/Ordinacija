@@ -1,6 +1,5 @@
 package com.wsoft.model;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ import java.util.Properties;
 
 import javax.naming.NamingException;
 
+import org.hibernate.CacheMode;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
@@ -26,7 +26,7 @@ import org.hibernate.cfg.Configuration;
 public class HibernateProxy {
 	private static SessionFactory sessionFactory = null;
 	private static Properties hbmProperties = null;
-	private static Session session = null;
+	private static ThreadLocal<Session> session = new ThreadLocal<Session>();
 
 	private static synchronized SessionFactory getSessionFactory()
 			throws NamingException {
@@ -66,6 +66,7 @@ public class HibernateProxy {
 		prop.put("connection.autocommit", "false");
 		prop.put("connection.provider_class",
 				"org.hibernate.connection.C3P0ConnectionProvider");
+		prop.put("hibernate.show_sql","false");
 		Configuration config = new Configuration();
 		config.addProperties(prop);
 		Iterator<String> it = mappings.iterator();
@@ -100,15 +101,16 @@ public class HibernateProxy {
 	}
 
 	public static Session session() {
-		if (HibernateProxy.session == null || !HibernateProxy.session.isOpen()) {
+		if (HibernateProxy.session.get() == null || !HibernateProxy.session.get().isOpen()) {
 			try {
-				HibernateProxy.session = HibernateProxy.getSessionFactory()
-						.openSession();
+				HibernateProxy.session.set(HibernateProxy.getSessionFactory()
+						.openSession());
+				HibernateProxy.session.get().setCacheMode(CacheMode.IGNORE);
 			} catch (HibernateException | NamingException e) {
 				e.printStackTrace();
 			}
 		}
-		return HibernateProxy.session;
+		return HibernateProxy.session.get();
 	}
 
 	public static void beginTransaction() {

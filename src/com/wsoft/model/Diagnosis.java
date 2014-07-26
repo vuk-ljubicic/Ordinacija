@@ -26,4 +26,9 @@ public class Diagnosis extends BaseModel implements Serializable {
 	public Diagnosis(){
 		
 	}
+	
+	@Override
+	public String toString(){
+		return this.nazivDijagnoze;
+	}
 }

@@ -3,12 +3,14 @@
 <!-- Generated Apr 3, 2012 11:34:29 AM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
   <class name="com.wsoft.model.ExecutedService" table="IzvedeneIntUsl">
-    <composite-id>
-            <key-property name="idPac" type="java.lang.Long" column="IDPac"/>
-            <key-property name="datum" type="java.util.Date" column="Datum"/>
-            <key-property name="idZuba" type="java.lang.Long" column="IDZuba"/>
-            <key-property name="usluga" type="java.lang.Long" column="Usluga"/>
-    </composite-id>
+    <id name="increment" type="long">
+      <column name="increment"/>
+      <generator class="increment"/>
+    </id>
+    <property name="idPac" type="java.lang.Long" column="IDPac"/>
+    <property name="datum" type="java.util.Date" column="Datum"/>
+    <property name="idZuba" type="java.lang.Long" column="IDZuba"/>
+    <property name="usluga" type="java.lang.Long" column="Usluga"/>
     <property name="dijagnoza" type="java.lang.Long" column="Dijagnoza"/>
     <property name="materijal" type="java.lang.Long" column="Materijal"/>
     <property name="idStom" type="java.lang.Long" column="IDStom"/>

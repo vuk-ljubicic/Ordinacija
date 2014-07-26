@@ -145,8 +145,12 @@ public class AutoCompletion extends PlainDocument {
     }
     
     private void highlightCompletedText(int start) {
-        editor.setCaretPosition(getLength());
-        editor.moveCaretPosition(start);
+    	try{
+    		editor.setCaretPosition(getLength());
+            editor.moveCaretPosition(start);
+    	} catch (Exception e){
+    		
+    	}
     }
     
     private void setSelectedItem(Object item) {
